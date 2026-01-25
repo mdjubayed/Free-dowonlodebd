@@ -3,54 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Downloader - সব সোশ্যাল মিডিয়া</title>
+    <title>Video Downloader</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}.card{max-width:500px;width:100%;background:white;border-radius:20px;padding:30px;box-shadow:0 20px 40px rgba(0,0,0,0.1);text-align:center}h1{color:#333;font-size:28px;margin-bottom:10px}small{color:#666;display:block;margin-bottom:30px}.input-wrapper{position:relative;margin-bottom:20px}input[type="url"]{width:100%;padding:18px 20px 18px 50px;border:2px solid #e1e5e9;border-radius:15px;font-size:16px;transition:all 0.3s;background:#f8f9fa}input:focus{outline:none;border-color:#ff6b6b;background:white;box-shadow:0 0 0 3px rgba(255,107,107,0.1)}button{width:100%;padding:18px;background:linear-gradient(45deg,#ff6b6b,#ff8e8e);color:white;border:none;border-radius:15px;font-size:18px;font-weight:600;cursor:pointer;transition:all 0.3s;text-transform:uppercase;letter-spacing:1px}button:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(255,107,107,0.3)}button:active{transform:translateY(0)}.result{margin-top:25px;padding:20px;border-radius:15px;text-align:center;font-weight:500}.success{background:#d4f4dd;color:#1b5e20;border:2px solid #a3e4d7}.error{background:#ffe6e6;color:#c44569;border:2px solid #ff9999}.download-link{display:inline-block;background:#28a745;color:white;padding:12px 25px;text-decoration:none;border-radius:10px;margin-top:15px;font-weight:600}.platforms{display:grid;grid-template-columns:repeat(auto-fit,minmax(80px,1fr));gap:10px;margin:25px 0}.platform{background:#f0f2f5;padding:12px;border-radius:10px;cursor:pointer;font-size:14px;transition:0.3s}.platform:hover{background:#e3f2fd;color:#1976d2}.loading{display:none;text-align:center;padding:20px}.spinner{width:40px;height:40px;border:4px solid #f3f3f3;border-top:4px solid #ff6b6b;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto}@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}@media(max-width:480px){.card{padding:20px}h1{font-size:24px}}
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 95%;
+            max-width: 500px;
+            text-align: center;
+        }
+        h1 { 
+            color: #2c3e50; 
+            margin-bottom: 10px; 
+            font-size: 2.2em;
+        }
+        .subtitle {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        input {
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            border: 3px solid #ecf0f1;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+        }
+        input:focus {
+            outline: none;
+            border-color: #3498db;
+            background: white;
+        }
+        button {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(231,76,60,0.4);
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            font-weight: bold;
+            display: none;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+        .platforms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        .platform {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        .platform:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
-    <div class="card">
+    <div class="container">
         <h1>🎥 Video Downloader</h1>
-        <small>Instagram • Facebook • TikTok • YouTube • Twitter</small>
+        <p class="subtitle">Instagram • Facebook • TikTok • Twitter • YouTube</p>
         
         <div class="platforms">
-            <div class="platform" onclick="setUrl('https://www.instagram.com/reel/C_abc123/')">📱 Insta</div>
-            <div class="platform" onclick="setUrl('https://www.facebook.com/watch?v=123456')">📘 FB</div>
+            <div class="platform" onclick="setUrl('https://www.instagram.com/p/abc123/')">📱 Instagram</div>
+            <div class="platform" onclick="setUrl('https://www.facebook.com/watch/?v=123456789')">📘 Facebook</div>
             <div class="platform" onclick="setUrl('https://www.tiktok.com/@user/video/123456789')">🎵 TikTok</div>
-            <div class="platform" onclick="setUrl('https://twitter.com/i/status/123456789')">🐦 Twitter</div>
-            <div class="platform" onclick="setUrl('https://youtu.be/dQw4w9WgXcQ')">📺 YouTube</div>
+            <div class="platform" onclick="setUrl('https://twitter.com/user/status/123456789')">🐦 Twitter</div>
+            <div class="platform" onclick="setUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">📺 YouTube</div>
         </div>
         
-        <div class="input-wrapper">
-            <input type="url" id="videoUrl" placeholder="ভিডিও লিঙ্ক পেস্ট করুন 👇">
-        </div>
-        
-        <button onclick="getDownload()">🚀 ডাউনলোড করুন</button>
+        <input type="url" id="videoUrl" placeholder="ভিডিও লিঙ্ক এখানে পেস্ট করুন 👇">
+        <button onclick="downloadVideo()">🚀 ডাউনলোড করুন</button>
         
         <div class="loading" id="loading">
             <div class="spinner"></div>
-            <p>ভিডিও খুঁজছে...</p>
+            <p>ভিডিও প্রস্তুত করছে...</p>
         </div>
         
-        <div id="result" class="result" style="display:none;"></div>
+        <div id="result" class="result"></div>
     </div>
 
     <script>
-        const DOWNLOADER_URLS = {
-            instagram: 'https://www.instafinsta.app/downloader.php',
+        const downloadUrls = {
+            instagram: 'https://sssinstagram.com/downloader-instagram.php',
             facebook: 'https://fdown.net/download.php',
-            tiktok: 'https://ssstik.io/abc.php',
+            tiktok: 'https://snaptik.app/aja.php',
             twitter: 'https://twdown.net/download.php',
-            youtube: 'https://y2mate.is/abc.php'
+            youtube: 'https://yt1s.com/abc.php'
         };
 
-        function setUrl(example) {
-            document.getElementById('videoUrl').value = example;
+        function setUrl(url) {
+            document.getElementById('videoUrl').value = url;
         }
 
-        async function getDownload() {
+        function detectPlatform(url) {
+            if (url.includes('instagram.com')) return 'instagram';
+            if (url.includes('facebook.com') || url.includes('fb.watch')) return 'facebook';
+            if (url.includes('tiktok.com') || url.includes('vm.tiktok.com')) return 'tiktok';
+            if (url.includes('twitter.com') || url.includes('x.com')) return 'twitter';
+            if (url.includes('youtube.com') || url.includes('youtu.be')) return 'youtube';
+            return 'instagram';
+        }
+
+        function downloadVideo() {
             const url = document.getElementById('videoUrl').value.trim();
-            if (!url) return showError('লিঙ্ক দিন!');
+            if (!url) {
+                showError('❌ ভিডিও লিঙ্ক দিন!');
+                return;
+            }
 
             const loading = document.getElementById('loading');
             const result = document.getElementById('result');
@@ -58,51 +180,32 @@
             loading.style.display = 'block';
             result.style.display = 'none';
 
-            try {
-                // Direct platform redirect (100% working)
-                let platform = detectPlatform(url);
-                let downloader = DOWNLOADER_URLS[platform] || DOWNLOADER_URLS.instagram;
-                
-                // Open in new tab with URL parameter
-                const downloadUrl = `${downloader}?url=${encodeURIComponent(url)}`;
-                
+            setTimeout(() => {
                 loading.style.display = 'none';
+                const platform = detectPlatform(url);
+                const downloadUrl = `${downloadUrls[platform]}?url=${encodeURIComponent(url)}`;
                 window.open(downloadUrl, '_blank');
-                
-                showSuccess('নতুন ট্যাবে খুলছে... সেখান থেকে ডাউনলোড করুন ✅');
-                
-            } catch(e) {
-                loading.style.display = 'none';
-                showError('ইন্টারনেট চেক করুন!');
-            }
-        }
-
-        function detectPlatform(url) {
-            if (url.includes('instagram.com')) return 'instagram';
-            if (url.includes('facebook.com') || url.includes('fb.watch')) return 'facebook';
-            if (url.includes('tiktok.com')) return 'tiktok';
-            if (url.includes('twitter.com') || url.includes('x.com')) return 'twitter';
-            if (url.includes('youtube.com') || url.includes('youtu.be')) return 'youtube';
-            return 'instagram';
+                showSuccess('✅ নতুন ট্যাব খুলেছে!<br>সেখান থেকে ডাউনলোড করুন');
+            }, 1500);
         }
 
         function showSuccess(msg) {
             const result = document.getElementById('result');
-            result.innerHTML = `<strong>${msg}</strong>`;
+            result.innerHTML = msg;
             result.className = 'result success';
             result.style.display = 'block';
         }
 
         function showError(msg) {
             const result = document.getElementById('result');
-            result.innerHTML = `<strong>❌ ${msg}</strong>`;
+            result.innerHTML = msg;
             result.className = 'result error';
             result.style.display = 'block';
         }
 
-        // Enter press
-        document.getElementById('videoUrl').addEventListener('keypress', e => {
-            if (e.key === 'Enter') getDownload();
+        // Enter key support
+        document.getElementById('videoUrl').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') downloadVideo();
         });
     </script>
 </body>
